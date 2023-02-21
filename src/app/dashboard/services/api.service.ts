@@ -7,8 +7,7 @@ import { Gif, SearchGifsResponse } from '../interfaces/gifs.interface';
 })
 export class ApiService {
 
-  private apiKey: string = 'CtbSNZMFPFlbWl1x5KQjtqPOHnE1ema5';
-  private url   : string = 'https://api.giphy.com/v1/gifs';
+  private url   : string = 'https://apiasdas.sda.com/v1/giasdafs';
 
   result: Gif[] = []
 
@@ -19,15 +18,11 @@ export class ApiService {
     // sacar espacios y sacar mayusculas
     consulta = consulta.trim().toLocaleLowerCase();
 
-    // armar el header usando HttpParams
-    const params = new HttpParams()
-      .set( 'api_key', this.apiKey )
-      .set( 'limit', 5 )
-      .set( 'q', consulta );
+
 
     // la consulta
     this.http
-      .get<SearchGifsResponse>( `${ this.url }/search`, { params } )
+      .get<SearchGifsResponse>( `${ this.url }/search`, )
       .subscribe( ( resp )=> ( this.result = resp.data ))
   }
 

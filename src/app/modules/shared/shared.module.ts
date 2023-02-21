@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ToolbarComponent } from './toolbar/toolbar.component';
 import { MaterialModule } from '../material/material.module';
+import { RoutingModule } from '../../dashboard/routing.module';
 
 
 
@@ -12,6 +13,7 @@ import { MaterialModule } from '../material/material.module';
   imports: [
     CommonModule,
     MaterialModule,
+    RoutingModule,
   ],
   exports:[ToolbarComponent]
 })

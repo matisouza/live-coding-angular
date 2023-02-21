@@ -5,7 +5,11 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { SharedModule } from './modules/shared/shared.module';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { initializeApp,provideFirebaseApp } from '@angular/fire/app';
+import { environment } from '../environments/environment';
+import { provideAuth,getAuth } from '@angular/fire/auth';
+import { InterceptorService } from './dashboard/services/interceptor.service';
 
 @NgModule({
   declarations: [
@@ -20,8 +24,16 @@ import { HttpClientModule } from '@angular/common/http';
     SharedModule,
 
     BrowserAnimationsModule,
+     provideFirebaseApp(() => initializeApp(environment.firebase)),
+     provideAuth(() => getAuth()),
   ],
-  providers: [],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS, // defino un tipo de interceptor
+      useClass: InterceptorService, // defino mi interceptor
+      multi: true // para estar escuchando todas las peticiones http
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

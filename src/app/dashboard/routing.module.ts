@@ -7,8 +7,8 @@ const routes: Routes = [
   {
     path: '',
     children: [
-      { path: 'gif', component: GifPageComponent },
-      { path: '**', redirectTo: 'gif' },
+      { path: 'gifs', component: GifPageComponent },
+      { path: '**', redirectTo: 'gifs' },
     ],
   },
 ];
