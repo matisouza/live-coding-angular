@@ -29,9 +29,9 @@ import { InterceptorService } from './dashboard/services/interceptor.service';
   ],
   providers: [
     {
-      provide: HTTP_INTERCEPTORS, // defino un tipo de interceptor
+      provide: HTTP_INTERCEPTORS, // defino un tipo de intercepotr
       useClass: InterceptorService, // defino mi interceptor
-      multi: true // para estar escuchando todas las peticiones http
+      multi: true // para estar a la escucha de todas las peticiones http
     }
   ],
   bootstrap: [AppComponent]

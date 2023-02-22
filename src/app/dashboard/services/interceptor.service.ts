@@ -1,6 +1,6 @@
-import { HttpErrorResponse, HttpEvent, HttpHandler, HttpInterceptor, HttpParams, HttpRequest } from '@angular/common/http';
+import { HttpErrorResponse, HttpEvent, HttpEventType, HttpHandler, HttpHeaders, HttpInterceptor, HttpParams, HttpRequest } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { catchError, Observable, throwError } from 'rxjs';
+import { catchError, Observable, tap, throwError } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -10,34 +10,33 @@ export class InterceptorService implements HttpInterceptor {
   constructor() { }
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
 
-    console.log('Entro en el interceptor')
+    console.log("Entro en el interceptor")
 
-    let apiKey = 'CtbSNZMFPFlbWl1x5KQjtqPOHnE1ema5';
+    let apiKey: string = 'CtbSNZMFPFlbWl1x5KQjtqPOHnE1ema5';
 
     // armar el header usando HttpParams
     const params = new HttpParams()
       .set('api_key', apiKey)
       .set('limit', 5)
-      .set('q', 'nice');
+      .set('q', 'hola');
 
-
-    // Solo tiene un uso, por eso lo clonamos.
-    const clone = req.clone({
+    const copia = req.clone({
       params
     })
 
-
-    /**
-     * como retornamos un observable,
-     * podemos usar el pipe para capturar el error de la petición
-     */
-    return next.handle(clone).pipe(
+    return next.handle(copia).pipe(
+      tap(event => {
+        if (event.type === HttpEventType.Response){
+          console.log(event.status)
+          console.log(event.body)
+        }
+      }),
       catchError(this.handlerError)
     )
   }
-
-  handlerError(err: HttpErrorResponse) {
-    if (err.status == 0) return throwError(() => new Error('error'))
-    return throwError(() => new Error('Error'))
+  handlerError(error: HttpErrorResponse) {
+    console.warn(error)
+    if (error.status === 401) return throwError(() => new Error('Error en las credenciales'))
+    return throwError(() => new Error('Ocurrio un error'))
   }
 }

@@ -7,7 +7,7 @@ import { Gif, SearchGifsResponse } from '../interfaces/gifs.interface';
 })
 export class ApiService {
 
-  private url   : string = 'https://apiasdas.sda.com/v1/giasdafs';
+  private url   : string = 'https://api.giphy.com/v1/gifs';
 
   result: Gif[] = []
 
@@ -17,6 +17,7 @@ export class ApiService {
 
     // sacar espacios y sacar mayusculas
     consulta = consulta.trim().toLocaleLowerCase();
+
 
 
 
