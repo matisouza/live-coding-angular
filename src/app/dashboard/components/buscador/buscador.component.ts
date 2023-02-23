@@ -1,5 +1,6 @@
 import { Component, ElementRef, EventEmitter, Output, ViewChild } from '@angular/core';
 import { ApiService } from '../../services/api.service';
+import { DataService } from '../../../modules/shared/services/data.service';
 
 @Component({
   selector: 'app-buscador',
@@ -11,14 +12,15 @@ export class BuscadorComponent {
 
   // @ViewChild('txtBuscar') txtBuscar!: ElementRef<HTMLInputElement>;
 
-  constructor(private gifService: ApiService){}
+  constructor(
+    private dataService: DataService
+  ) { }
 
-  buscar(){
+  buscar() {
     // const valor = this.txtBuscar.nativeElement.value;
 
-    if(this.valorInput.trim().length === 0) alert("mi rey debe escribir algo");
-
-    this.gifService.getGifs(this.valorInput);
+    if (this.valorInput.trim().length === 0) alert("mi rey debe escribir algo");
+    this.dataService.setBehSubjectValue( this.valorInput )
 
   }
 }

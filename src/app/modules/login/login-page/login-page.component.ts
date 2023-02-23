@@ -9,11 +9,6 @@ import { HolaService } from '../../shared/services/api.service';
 })
 export class LoginPageComponent{
 
-  constructor(private router: Router, public holaService: HolaService) { }
-
-  redirect() {
-    this.router.navigate(['dashboard/gif']);
-  }
-
+  constructor() { }
 
 }

@@ -12,23 +12,14 @@ export class InterceptorService implements HttpInterceptor {
 
     console.log("Entro en el interceptor")
 
-    let apiKey: string = 'CtbSNZMFPFlbWl1x5KQjtqPOHnE1ema5';
 
-    // armar el header usando HttpParams
-    const params = new HttpParams()
-      .set('api_key', apiKey)
-      .set('limit', 5)
-      .set('q', 'hola');
-
-    const copia = req.clone({
-      params
-    })
+    const copia = req.clone()
 
     return next.handle(copia).pipe(
       tap(event => {
         if (event.type === HttpEventType.Response){
           console.log(event.status)
-          console.log(event.body)
+          // console.log(event.body)
         }
       }),
       catchError(this.handlerError)
